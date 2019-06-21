@@ -1,3 +1,5 @@
-package mario
+package main
 
+func main() {
 
+}
