@@ -1,4 +1,4 @@
-package classe
+package classes
 
 import (
 	"math/rand"
@@ -7,70 +7,70 @@ import (
 
 // Hero ; interface de base
 type Hero interface {
-	GetPointDeVie() int
-	GetPointDeMagie() int
-	GetForce() int
-	GetIntelligence() int
+	GetHealthPoint() int
+	GetMagicPoint() int
+	GetStrength() int
+	GetIntelect() int
 }
 
-// Carac ; structure étendu aux structures des différentes classes
-type Carac struct {
-	PointDeVie,
-	PointDeMagie,
-	Force,
-	Intelligence int
+// Trait ; structure étendu aux structures des différentes classes
+type Trait struct {
+	HealthPoint,
+	MagicPoint,
+	Strength,
+	Intelect int
 }
 
-// Guerrier ; hérite des Carac + possede un bonus de Point de vie et de Force
-type Guerrier struct {
-	Carac
+// Warrior ; hérite des Trait + possede un bonus de Point de vie et de Strength
+type Warrior struct {
+	Trait
 }
 
-// Mage ; hérite des Carac + possede un bonus de Point de magie et d'Intélligence
+// Mage ; hérite des Trait + possede un bonus de Point de magie et d'Intélligence
 type Mage struct {
-	Carac
+	Trait
 }
 
 // -------------------  Getters & Setters
 
-// GetPointDeVie ;
-func (g Guerrier) GetPointDeVie() int {
-	return g.PointDeVie
+// GetHealthPoint ;
+func (w Warrior) GetHealthPoint() int {
+	return w.HealthPoint
 }
 
-// GetPointDeVie ;
-func (m Mage) GetPointDeVie() int {
-	return m.PointDeVie
+// GetHealthPoint ;
+func (m Mage) GetHealthPoint() int {
+	return m.HealthPoint
 }
 
-// GetPointDeMagie ;
-func (g Guerrier) GetPointDeMagie() int {
-	return g.PointDeMagie
+// GetMagicPoint ;
+func (w Warrior) GetMagicPoint() int {
+	return w.MagicPoint
 }
 
-// GetPointDeMagie ;
-func (m Mage) GetPointDeMagie() int {
-	return m.PointDeMagie
+// GetMagicPoint ;
+func (m Mage) GetMagicPoint() int {
+	return m.MagicPoint
 }
 
-// GetForce ;
-func (g Guerrier) GetForce() int {
-	return g.Force
+// GetStrength ;
+func (w Warrior) GetStrength() int {
+	return w.Strength
 }
 
-// GetForce ;
-func (m Mage) GetForce() int {
-	return m.Force
+// GetStrength ;
+func (m Mage) GetStrength() int {
+	return m.Strength
 }
 
-// GetIntelligence ;
-func (g Guerrier) GetIntelligence() int {
-	return g.Intelligence
+// GetIntelect ;
+func (w Warrior) GetIntelect() int {
+	return w.Intelect
 }
 
-// GetIntelligence ;
-func (m Mage) GetIntelligence() int {
-	return m.Intelligence
+// GetIntelect ;
+func (m Mage) GetIntelect() int {
+	return m.Intelect
 }
 
 // ------------------- Fin de Getters & Setters
@@ -81,44 +81,44 @@ func CreateClass(class string) Hero {
 	// Source d'aleatoire
 	rand.Seed(time.Now().UnixNano())
 
-	pdv := 100 // points de vie
-	pdm := 100 // points de magie
-	f := 20    // force
-	i := 20    // intelligence
+	hp := 100 // points de vie
+	mp := 100 // points de magie
+	s := 20   // Strength
+	i := 20   // Intelect
 
 	// valeur max des points bonus ajouté aux stats
-	CapBonus := 50
-	// pourcentage maximum dont peut etre augmenter le CapBonus
-	MaxPourcentageBonus := 30
+	BonusCap := 50
+	// pourcentage maximum dont peut etre augmenter le BonusCap
+	MaxBonusPourcentage := 30
 
-	BonusEffectif := CapBonus + CapBonus*rand.Intn(MaxPourcentageBonus)/100
+	EffectiveBonus := BonusCap + BonusCap*rand.Intn(MaxBonusPourcentage)/100
 
-	BonusPoint := (rand.Intn(BonusEffectif))
-	BonusStat := BonusEffectif - BonusPoint
+	BonusPoint := (rand.Intn(EffectiveBonus))
+	BonusTrait := EffectiveBonus - BonusPoint
 
 	switch class {
-	case "Guerrier":
-		pdv = pdv + BonusPoint
-		f = f + BonusStat
-		c := Carac{
-			PointDeVie:   pdv,
-			PointDeMagie: pdm,
-			Force:        f,
-			Intelligence: i,
+	case "Warrior":
+		hp = hp + BonusPoint
+		s = s + BonusTrait
+		t := Trait{
+			HealthPoint: hp,
+			MagicPoint:  mp,
+			Strength:    s,
+			Intelect:    i,
 		}
-		h := Guerrier{c}
+		h := Warrior{t}
 		return h
 
 	case "Mage":
-		pdm = pdm + BonusPoint
-		i = i + BonusStat
-		c := Carac{
-			PointDeVie:   pdv,
-			PointDeMagie: pdm,
-			Force:        f,
-			Intelligence: i,
+		mp = mp + BonusPoint
+		i = i + BonusTrait
+		t := Trait{
+			HealthPoint: hp,
+			MagicPoint:  mp,
+			Strength:    s,
+			Intelect:    i,
 		}
-		h := Mage{c}
+		h := Mage{t}
 		return h
 	}
 	return nil
