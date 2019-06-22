@@ -1,7 +1,6 @@
 package classe
 
 import (
-	"log"
 	"math/rand"
 	"time"
 )
@@ -79,20 +78,28 @@ func (m Mage) GetIntelligence() int {
 // CreateClass ;
 func CreateClass(class string) Hero {
 
-	pdv := 100
-	pdm := 100
-	f := 20
-	i := 20
-
+	// Source d'aleatoire
 	rand.Seed(time.Now().UnixNano())
-	amplifierPts := (rand.Intn(30-10) + 10)
-	amplifierStat := (rand.Intn(30-10) + 10)
-	log.Println(amplifierStat)
+
+	pdv := 100 // points de vie
+	pdm := 100 // points de magie
+	f := 20    // force
+	i := 20    // intelligence
+
+	// valeur max des points bonus ajouté aux stats
+	CapBonus := 50
+	// pourcentage maximum dont peut etre augmenter le CapBonus
+	MaxPourcentageBonus := 30
+
+	BonusEffectif := CapBonus + CapBonus*rand.Intn(MaxPourcentageBonus)/100
+
+	BonusPoint := (rand.Intn(BonusEffectif))
+	BonusStat := BonusEffectif - BonusPoint
 
 	switch class {
 	case "Guerrier":
-		pdv = pdv + (pdv * amplifierPts / 100)
-		f = f + (f * amplifierStat / 100)
+		pdv = pdv + BonusPoint
+		f = f + BonusStat
 		c := Carac{
 			PointDeVie:   pdv,
 			PointDeMagie: pdm,
@@ -103,8 +110,8 @@ func CreateClass(class string) Hero {
 		return h
 
 	case "Mage":
-		pdm = pdm + (pdv * amplifierPts / 100)
-		i = i + (f * amplifierStat / 100)
+		pdm = pdm + BonusPoint
+		i = i + BonusStat
 		c := Carac{
 			PointDeVie:   pdv,
 			PointDeMagie: pdm,
