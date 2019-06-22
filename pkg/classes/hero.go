@@ -4,10 +4,7 @@ package main
 
 // Hero ; interface de base
 type Hero interface {
-	GetPointDeVie() int
-	GetPointDeMagie() int
-	GetForce() int
-	GetIntelligence() int
+	sayClass() string
 }
 
 // Carac ; structure étendu aux structures des différentes classes
