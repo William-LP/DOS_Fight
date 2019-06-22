@@ -37,8 +37,22 @@ func (m Mage) sayClass() string {
 	return "jsuis un mago"
 }
 
-func main() {
+// CreateClass ;
+func CreateClass(class string) Hero {
 	c := Carac{10, 10, 10, 10}
-	h := Guerrier{c}
+	switch class {
+	case "war":
+		h := Guerrier{c}
+		return h
+
+	case "mago":
+		h := Mage{c}
+		return h
+	}
+	return nil
+}
+
+func main() {
+	h := CreateClass("mago")
 	fmt.Printf(h.sayClass())
 }
