@@ -1,12 +1,10 @@
-package main
+package classe
 
 import (
 	"log"
 	"math/rand"
 	"time"
 )
-
-// package classes
 
 // Hero ; interface de base
 type Hero interface {
@@ -117,12 +115,4 @@ func CreateClass(class string) Hero {
 		return h
 	}
 	return nil
-}
-
-func main() {
-	h := CreateClass("Mage")
-	log.Println("Point De Vie : ", h.GetPointDeVie())
-	log.Println("Point De Magie: ", h.GetPointDeMagie())
-	log.Println("Force : ", h.GetForce())
-	log.Println("Intelligence: ", h.GetIntelligence())
 }
