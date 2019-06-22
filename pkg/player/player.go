@@ -1,17 +1,16 @@
 package player
 
+// Player ;
 type Player struct {
-	Name string,
+	Name string
 	Gold int
 }
 
+// NewPlayer ;
 func NewPlayer(name string) Player {
-	np := {
-		Name : name,
-		Gold : 50
+	np := Player{
+		Name: name,
+		Gold: 50,
 	}
 	return np
 }
-
-
-
