@@ -21,13 +21,13 @@ type Carac struct {
 // Guerrier ; hérite des Carac + possede un bonus de Point de vie et de Force
 type Guerrier struct {
 	Carac
-	BonusPointDeVie int
-	BonusForce      int
 }
 
 // Mage ; hérite des Carac + possede un bonus de Point de magie et d'Intélligence
 type Mage struct {
 	Carac
-	BonusPointDeMagie int
-	BonusIntelligence int
+}
+
+func main() {
+
 }
