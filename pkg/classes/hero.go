@@ -36,49 +36,6 @@ type Mage struct {
 	BonusIntelligence int
 }
 
-// ------------------------------------------------------------------
-// 			Getters des Carac des mes classes
-// ------------------------------------------------------------------
-// GetPointDeVie Guerrier
-func (h Guerrier) GetPointDeVie() int {
-	return h.PointDeVie + h.BonusPointDeVie
-}
-
-// GetPointDeVie Mage
-func (h Mage) GetPointDeVie() int {
-	return h.PointDeVie
-}
-
-// GetPointDeMagie Guerrier
-func (h Guerrier) GetPointDeMagie() int {
-	return h.PointDeMagie
-}
-
-// GetPointDeMagie Mage
-func (h Mage) GetPointDeMagie() int {
-	return h.PointDeMagie + h.BonusPointDeMagie
-}
-
-// GetForce Guerrier
-func (h Guerrier) GetForce() int {
-	return h.Force + h.BonusForce
-}
-
-// GetForce Mage
-func (h Mage) GetForce() int {
-	return h.Force
-}
-
-// GetIntelligence Guerrier
-func (h Guerrier) GetIntelligence() int {
-	return h.Intelligence
-}
-
-// GetIntelligence Mage
-func (h Mage) GetIntelligence() int {
-	return h.Intelligence + h.BonusIntelligence
-}
-
 // CreateHero ;
 func CreateHero(classe string, pdv, pdm, f, i int) Hero {
 	carac := Carac{
