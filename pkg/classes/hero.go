@@ -1,5 +1,9 @@
 package main
 
+import (
+	"fmt"
+)
+
 // package classes
 
 // Hero ; interface de base
@@ -25,6 +29,16 @@ type Mage struct {
 	Carac
 }
 
-func main() {
+func (g Guerrier) sayClass() string {
+	return "jsuis un war"
+}
 
+func (m Mage) sayClass() string {
+	return "jsuis un mago"
+}
+
+func main() {
+	c := Carac{10, 10, 10, 10}
+	h := Guerrier{c}
+	fmt.Printf(h.sayClass())
 }
