@@ -2,10 +2,6 @@ package main
 
 // package classes
 
-import (
-	"log"
-)
-
 // Hero ; interface de base
 type Hero interface {
 	GetPointDeVie() int
@@ -34,37 +30,4 @@ type Mage struct {
 	Carac
 	BonusPointDeMagie int
 	BonusIntelligence int
-}
-
-// CreateHero ;
-func CreateHero(classe string, pdv, pdm, f, i int) Hero {
-	carac := Carac{
-		PointDeVie:   pdv,
-		PointDeMagie: pdm,
-		Force:        f,
-		Intelligence: i,
-	}
-	switch classe {
-	case "Guerrier":
-		h := Guerrier{
-			Carac:           carac,
-			BonusPointDeVie: 150,
-			BonusForce:      100,
-		}
-		h.PointDeVie = (h.BonusPointDeVie + h.PointDeVie)
-		return h
-	case "Mage":
-		h := Mage{
-			Carac:             carac,
-			BonusPointDeMagie: 150,
-			BonusIntelligence: 100,
-		}
-		return h
-	}
-	return nil
-}
-
-func main() {
-	monHero := CreateHero("Guerrier", 10, 10, 10, 10)
-	log.Println(monHero.GetPointDeVie)
 }
