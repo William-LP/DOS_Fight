@@ -8,3 +8,4 @@
 * See how to allow players to play over the LAN 
 * Ascii art to display the main menu (class selection etc) ?
 * Adding a bet system to enrich wining player over time
+* Save progression (VictoryCount, Gold ...) on disk using an encryption system to avoid player to cheat ?
