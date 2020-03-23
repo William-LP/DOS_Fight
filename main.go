@@ -27,14 +27,17 @@ func mainMenu(p player.Player) {
 
 	fmt.Println("Start a game (1)")
 	fmt.Println("Open the shop (2)")
-	fmt.Println("Exit the game (3)")
+	fmt.Println("See my player's stats (3)")
+	fmt.Println("Exit the game (4)")
 	fmt.Println()
 	switch getInput("Choice : ") {
 	case "1":
 		startGame()
 	case "2":
-		openShop(p)
+		shop(p)
 	case "3":
+		playerStats(p)
+	case "4":
 		exitGame()
 	default:
 		fmt.Println("Error, please make a correct choice")
@@ -49,11 +52,6 @@ func exitGame() {
 
 func startGame() {
 	fmt.Println("Lets start a game !")
-}
-
-func openShop(p player.Player) {
-	clearScreen()
-	shop(p)
 }
 
 func main() {

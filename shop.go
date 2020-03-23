@@ -3,8 +3,6 @@ package main
 import (
 	"encoding/xml"
 	"fmt"
-	"io/ioutil"
-	"os"
 
 	"github.com/William-LP/go_training/pkg/player"
 	"github.com/common-nighthawk/go-figure"
@@ -49,6 +47,10 @@ type Potion struct {
 }
 
 func shop(p player.Player) {
+	clearScreen()
+	var items Items
+
+	/* Using a XML file
 	xmlFile, err := os.Open("../xml/items.xml")
 	if err != nil {
 		fmt.Println(err)
@@ -56,9 +58,14 @@ func shop(p player.Player) {
 	defer xmlFile.Close()
 	byteValue, _ := ioutil.ReadAll(xmlFile)
 
-	var items Items
+	// xml.Unmarshal(byteValue, &items)
 
-	xml.Unmarshal(byteValue, &items)
+	*/
+
+	// Using a XML var
+	itemsXML := `<?xml version="1.0" encoding="UTF-8"?><Items><Stuffs><Stuff><Id>1</Id><Name>Sword of Truth</Name><Price>50</Price><HealthPoint>10</HealthPoint><MagicPoint>5</MagicPoint><Strength>12</Strength><Intelect>6</Intelect></Stuff><Stuff><Id>2</Id><Name>Helmet of Wisdom</Name><Price>50</Price><HealthPoint>5</HealthPoint><MagicPoint>10</MagicPoint><Strength>6</Strength><Intelect>12</Intelect></Stuff></Stuffs><Potions><Potion><Id>1</Id><Name>Second Breath</Name><Price>10</Price><HealthPoint>20</HealthPoint><MagicPoint>0</MagicPoint><Strength>0</Strength><Intelect>0</Intelect></Potion><Potion><Id>2</Id><Name>Nature''s call</Name><Price>10</Price><HealthPoint>0</HealthPoint><MagicPoint>20</MagicPoint><Strength>0</Strength><Intelect>0</Intelect></Potion></Potions></Items>`
+	xml.Unmarshal([]byte(itemsXML), &items)
+
 	ShopFigure := figure.NewFigure("Shop", "small", true)
 	ShopFigure.Print()
 	fmt.Println()
@@ -66,7 +73,8 @@ func shop(p player.Player) {
 	fmt.Println()
 	fmt.Println("See the stuffs (1)")
 	fmt.Println("See the potions (2)")
-	fmt.Println("Exit shop (3)")
+	fmt.Println("See the potions (3)")
+	fmt.Println("Exit shop (4)")
 	fmt.Println()
 	switch getInput("Choice : ") {
 	case "1":
@@ -74,11 +82,17 @@ func shop(p player.Player) {
 	case "2":
 		showPotions(items)
 	case "3":
+		sellItems(p)
+	case "4":
 		mainMenu(p)
 	default:
 		fmt.Println("Error, please make a correct choice")
 		shop(p)
 	}
+
+}
+
+func sellItems(p player.Player) {
 
 }
 
