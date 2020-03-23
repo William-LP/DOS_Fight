@@ -9,3 +9,4 @@
 * Ascii art to display the main menu (class selection etc) ?
 * Adding a bet system to enrich wining player over time
 * Save progression (VictoryCount, Gold ...) on disk using an encryption system to avoid player to cheat ?
+* Give the player the oportunity to spend gold to interact with oponent's computer (displaying messages, taking screenshot, rebooting...)? Would be intrusive. But fun.
