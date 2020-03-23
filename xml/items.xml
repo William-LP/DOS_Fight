@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Items>
+   <Stuffs>
+      <Stuff>
+         <Id>1</Id>
+         <Name>Sword of Truth</Name>
+         <Price>50</Price>
+         <HealthPoint>10</HealthPoint>
+         <MagicPoint>5</MagicPoint>
+         <Strength>12</Strength>
+         <Intelect>6</Intelect>
+      </Stuff>
+      <Stuff>
+         <Id>2</Id>
+         <Name>Helmet of Wisdom</Name>
+         <Price>50</Price>
+         <HealthPoint>5</HealthPoint>
+         <MagicPoint>10</MagicPoint>
+         <Strength>6</Strength>
+         <Intelect>12</Intelect>
+      </Stuff>
+   </Stuffs>
+   <Potions>
+      <Potion>
+         <Id>1</Id>
+         <Name>Second Breath</Name>
+         <Price>10</Price>
+         <HealthPoint>20</HealthPoint>
+         <MagicPoint>0</MagicPoint>
+         <Strength>0</Strength>
+         <Intelect>0</Intelect>
+      </Potion>
+      <Potion>
+         <Id>2</Id>
+         <Name>Nature's call</Name>
+         <Price>10</Price>
+         <HealthPoint>0</HealthPoint>
+         <MagicPoint>20</MagicPoint>
+         <Strength>0</Strength>
+         <Intelect>0</Intelect>
+      </Potion>
+   </Potions>
+</Items>

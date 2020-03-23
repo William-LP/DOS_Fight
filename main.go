@@ -21,7 +21,10 @@ func getInput(textToPrint string) string {
 }
 
 func mainMenu(p player.Player) {
-	fmt.Println()
+	clearScreen()
+	myFigure := figure.NewFigure("DOS Fight", "rectangles", true)
+	myFigure.Print()
+
 	fmt.Println("Start a game (1)")
 	fmt.Println("Open the shop (2)")
 	fmt.Println("Exit the game (3)")
@@ -49,16 +52,12 @@ func startGame() {
 }
 
 func openShop(p player.Player) {
-	fmt.Println()
-	myFigure := figure.NewFigure("Shop", "rectangles", true)
-	myFigure.Print()
-	fmt.Println()
-	fmt.Println("Welcome to the shop", p.Name, "!")
-	fmt.Println("You've got", p.Gold, "gold(s) available.")
-
+	clearScreen()
+	shop(p)
 }
 
 func main() {
+	clearScreen()
 	myFigure := figure.NewFigure("DOS Fight", "rectangles", true)
 	myFigure.Print()
 
