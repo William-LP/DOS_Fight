@@ -3,43 +3,24 @@ package main
 import (
 	"encoding/xml"
 	"fmt"
+	"strconv"
+	"time"
 
 	"github.com/William-LP/go_training/pkg/player"
 	"github.com/common-nighthawk/go-figure"
 )
 
 type Items struct {
-	XMLName       xml.Name `xml:"Items"`
-	Items_stuffs  Stuffs   `xml:"Stuffs"`
-	Items_potions Potions  `xml:"Potions"`
+	XMLName xml.Name `xml:"Items"`
+	Item    []Item   `xml:"Item"`
 }
 
-type Stuffs struct {
-	XMLName xml.Name `xml:"Stuffs"`
-	Stuff   []Stuff  `xml:"Stuff"`
-}
-
-type Potions struct {
-	XMLName xml.Name `xml:"Potions"`
-	Potion  []Potion `xml:"Potion"`
-}
-
-type Stuff struct {
-	XMLName     xml.Name `xml:"Stuff"`
+type Item struct {
+	XMLName     xml.Name `xml:"Item"`
+	Type        string   `xml:"type,attr"`
 	Id          string   `xml:"Id"`
 	Name        string   `xml:"Name"`
-	Price       string   `xml:"Price"`
-	HealthPoint int      `xml:"HealthPoint"`
-	MagicPoint  int      `xml:"MagicPoint"`
-	Strength    int      `xml:"Strength"`
-	Intelect    int      `xml:"Intelect"`
-}
-
-type Potion struct {
-	XMLName     xml.Name `xml:"Potion"`
-	Id          string   `xml:"Id"`
-	Name        string   `xml:"Name"`
-	Price       string   `xml:"Price"`
+	Price       int      `xml:"Price"`
 	HealthPoint int      `xml:"HealthPoint"`
 	MagicPoint  int      `xml:"MagicPoint"`
 	Strength    int      `xml:"Strength"`
@@ -49,7 +30,7 @@ type Potion struct {
 func shop(p player.Player) {
 	clearScreen()
 	var items Items
-
+	var stuffs, potions []Item
 	/* Using a XML file
 	xmlFile, err := os.Open("../xml/items.xml")
 	if err != nil {
@@ -63,8 +44,17 @@ func shop(p player.Player) {
 	*/
 
 	// Using a XML var
-	itemsXML := `<?xml version="1.0" encoding="UTF-8"?><Items><Stuffs><Stuff><Id>1</Id><Name>Sword of Truth</Name><Price>50</Price><HealthPoint>10</HealthPoint><MagicPoint>5</MagicPoint><Strength>12</Strength><Intelect>6</Intelect></Stuff><Stuff><Id>2</Id><Name>Helmet of Wisdom</Name><Price>50</Price><HealthPoint>5</HealthPoint><MagicPoint>10</MagicPoint><Strength>6</Strength><Intelect>12</Intelect></Stuff></Stuffs><Potions><Potion><Id>1</Id><Name>Second Breath</Name><Price>10</Price><HealthPoint>20</HealthPoint><MagicPoint>0</MagicPoint><Strength>0</Strength><Intelect>0</Intelect></Potion><Potion><Id>2</Id><Name>Nature''s call</Name><Price>10</Price><HealthPoint>0</HealthPoint><MagicPoint>20</MagicPoint><Strength>0</Strength><Intelect>0</Intelect></Potion></Potions></Items>`
+	itemsXML := `<?xml version="1.0" encoding="UTF-8"?><Items><Item type="stuff"><Id>1</Id><Name>Sword of Truth</Name><Price>50</Price><HealthPoint>10</HealthPoint><MagicPoint>5</MagicPoint><Strength>12</Strength><Intelect>6</Intelect></Item><Item type="stuff"><Id>2</Id><Name>Helmet of Wisdom</Name><Price>50</Price><HealthPoint>5</HealthPoint><MagicPoint>10</MagicPoint><Strength>6</Strength><Intelect>12</Intelect></Item><Item type="potion"><Id>3</Id><Name>Second Breath</Name><Price>10</Price><HealthPoint>20</HealthPoint><MagicPoint>0</MagicPoint><Strength>0</Strength><Intelect>0</Intelect></Item><Item type="potion"><Id>4</Id><Name>Nature's call</Name><Price>10</Price><HealthPoint>0</HealthPoint><MagicPoint>20</MagicPoint><Strength>0</Strength><Intelect>0</Intelect></Item></Item`
 	xml.Unmarshal([]byte(itemsXML), &items)
+
+	for i := 0; i < len(items.Item); i++ {
+		switch items.Item[i].Type {
+		case "stuff":
+			stuffs = append(stuffs, items.Item[i])
+		case "potion":
+			potions = append(potions, items.Item[i])
+		}
+	}
 
 	ShopFigure := figure.NewFigure("Shop", "small", true)
 	ShopFigure.Print()
@@ -73,14 +63,17 @@ func shop(p player.Player) {
 	fmt.Println()
 	fmt.Println("See the stuffs (1)")
 	fmt.Println("See the potions (2)")
-	fmt.Println("See the potions (3)")
+	fmt.Println("Sell items (3)")
 	fmt.Println("Exit shop (4)")
-	fmt.Println()
 	switch getInput("Choice : ") {
 	case "1":
-		showStuff(items)
+		SubFigure := figure.NewFigure("Stuff", "cybermedium", true)
+		SubFigure.Print()
+		showItems(stuffs, p)
 	case "2":
-		showPotions(items)
+		SubFigure := figure.NewFigure("Potions", "cybermedium", true)
+		SubFigure.Print()
+		showItems(potions, p)
 	case "3":
 		sellItems(p)
 	case "4":
@@ -96,46 +89,67 @@ func sellItems(p player.Player) {
 
 }
 
-func showStuff(items Items) {
-	StuffsFigure := figure.NewFigure("Stuff", "cybermedium", true)
-	StuffsFigure.Print()
-
-	for i := 0; i < len(items.Items_stuffs.Stuff); i++ {
+func showItems(items []Item, p player.Player) {
+	for i := 0; i < len(items); i++ {
 		fmt.Println("\n+------------------------------+")
-		fmt.Println(items.Items_stuffs.Stuff[i].Id + " - " + items.Items_stuffs.Stuff[i].Name + "	(" + items.Items_stuffs.Stuff[i].Price + " golds)")
-		if items.Items_stuffs.Stuff[i].HealthPoint > 0 {
-			fmt.Printf("+%d hp ", items.Items_stuffs.Stuff[i].HealthPoint)
+		fmt.Println(items[i].Id + " - " + items[i].Name + "	(" + strconv.Itoa(items[i].Price) + " golds)")
+		if items[i].HealthPoint > 0 {
+			fmt.Printf("+%d hp ", items[i].HealthPoint)
 		}
-		if items.Items_stuffs.Stuff[i].MagicPoint > 0 {
-			fmt.Printf("+%d mp ", items.Items_stuffs.Stuff[i].MagicPoint)
+		if items[i].MagicPoint > 0 {
+			fmt.Printf("+%d mp ", items[i].MagicPoint)
 		}
-		if items.Items_stuffs.Stuff[i].Strength > 0 {
-			fmt.Printf("+%d str ", items.Items_stuffs.Stuff[i].Strength)
+		if items[i].Strength > 0 {
+			fmt.Printf("+%d str ", items[i].Strength)
 		}
-		if items.Items_stuffs.Stuff[i].Intelect > 0 {
-			fmt.Printf("+%d int ", items.Items_stuffs.Stuff[i].Intelect)
+		if items[i].Intelect > 0 {
+			fmt.Printf("+%d int ", items[i].Intelect)
 		}
 	}
+	fmt.Println("\n+------------------------------+")
+	fmt.Println()
+	choice := getInput("Item to buy (press 'c' ton cancel) : ")
+	if choice == "c" {
+		shop(p)
+	}
+	var found = false
+
+	for _, i := range items {
+		if i.Id == choice {
+			found = true
+			buyItem(p, i)
+		}
+	}
+	if found == false {
+		fmt.Println()
+		fmt.Println("Impossible de trouver l'item a buy")
+		pause(2)
+		shop(p)
+
+	}
+
 }
 
-func showPotions(items Items) {
-	PotionsFigure := figure.NewFigure("Potions", "cybermedium", true)
-	PotionsFigure.Print()
+func pause(x int) {
+	duration := time.Duration(x) * time.Second // Pause for 10 seconds
+	time.Sleep(duration)
+}
 
-	for i := 0; i < len(items.Items_potions.Potion); i++ {
-		fmt.Println("\n+------------------------------+")
-		fmt.Println(items.Items_stuffs.Stuff[i].Id + " - " + items.Items_potions.Potion[i].Name + "	(" + items.Items_potions.Potion[i].Price + " golds)")
-		if items.Items_potions.Potion[i].HealthPoint > 0 {
-			fmt.Printf("+%d hp ", items.Items_potions.Potion[i].HealthPoint)
+func buyItem(p player.Player, i Item) {
+	if p.Gold >= i.Price {
+		p.Gold = p.Gold - i.Price
+		if i.Type == "stuff" {
+			p.BonusHealthPoint = p.BonusHealthPoint + i.HealthPoint
+			p.BonusMagicPoint = p.BonusMagicPoint + i.MagicPoint
+			p.BonusStrength = p.BonusStrength + i.Strength
+			p.BonusIntelect = p.BonusIntelect + i.Intelect
 		}
-		if items.Items_potions.Potion[i].MagicPoint > 0 {
-			fmt.Printf("+%d mp ", items.Items_potions.Potion[i].MagicPoint)
-		}
-		if items.Items_potions.Potion[i].Strength > 0 {
-			fmt.Printf("+%d str ", items.Items_potions.Potion[i].Strength)
-		}
-		if items.Items_potions.Potion[i].Intelect > 0 {
-			fmt.Printf("+%d int ", items.Items_potions.Potion[i].Intelect)
-		}
+		p.Inventaire = append(p.Inventaire, player.Item{})
+		shop(p)
+	} else {
+		fmt.Println()
+		fmt.Println("Not enough golds !")
+		pause(2)
+		shop(p)
 	}
 }
