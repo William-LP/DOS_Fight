@@ -10,6 +10,7 @@ import (
 	"github.com/common-nighthawk/go-figure"
 )
 
+// Items :
 type Items struct {
 	XMLName xml.Name      `xml:"Items"`
 	Item    []player.Item `xml:"Item"`

@@ -22,6 +22,7 @@ func init() {
 	}
 }
 
+// CallClear :
 func CallClear() {
 	value, ok := clear[runtime.GOOS] //runtime.GOOS -> linux, windows, darwin etc.
 	if ok {                          //if we defined a clear func for that platform:
