@@ -2,10 +2,13 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/William-LP/DOS_Fight/pkg/classes"
 	"github.com/William-LP/DOS_Fight/pkg/player"
+	"github.com/William-LP/DOS_Fight/pkg/bot"
 	"github.com/common-nighthawk/go-figure"
+	"github.com/dustinkirkland/golang-petname"
 )
 
 func game(p player.Player) {
@@ -41,5 +44,15 @@ func game(p player.Player) {
 	fmt.Println("Magic Point: ", h.GetMagicPoint())
 	fmt.Println("Strength : ", h.GetStrength())
 	fmt.Println("Intelect: ", h.GetIntelect())
-
+	pause(3)
+	for i := 3; i > 0; i-- {
+		clearScreen()
+		Countdown := figure.NewFigure(strconv.Itoa(i), "small", true)
+		Countdown.Print()
+		pause(1)
+	}
+	clearScreen()
+	Countdown := figure.NewFigure("Fight !", "small", true)
+	Countdown.Print()
+	fmt.Println(bot.getName)
 }
