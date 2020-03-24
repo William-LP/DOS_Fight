@@ -6,9 +6,8 @@ import (
 
 	"github.com/William-LP/DOS_Fight/pkg/classes"
 	"github.com/William-LP/DOS_Fight/pkg/player"
-	"github.com/William-LP/DOS_Fight/pkg/bot"
 	"github.com/common-nighthawk/go-figure"
-	"github.com/dustinkirkland/golang-petname"
+	petname "github.com/dustinkirkland/golang-petname"
 )
 
 func game(p player.Player) {
@@ -54,5 +53,5 @@ func game(p player.Player) {
 	clearScreen()
 	Countdown := figure.NewFigure("Fight !", "small", true)
 	Countdown.Print()
-	fmt.Println(bot.getName)
+	fmt.Println(petname.Generate(1, "-"))
 }
