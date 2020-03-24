@@ -1,4 +1,4 @@
-module github.com/William-LP/go_training
+module github.com/William-LP/DOS_Fight
 
 go 1.12
 
