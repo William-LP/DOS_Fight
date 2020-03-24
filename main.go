@@ -31,7 +31,7 @@ func mainMenu(p player.Player) {
 	fmt.Println("Exit the game (4)")
 	switch getInput("Choice : ") {
 	case "1":
-		startGame()
+		game(p)
 	case "2":
 		shop(p)
 	case "3":
@@ -50,10 +50,6 @@ func exitGame() {
 	os.Exit(0)
 }
 
-func startGame() {
-	fmt.Println("Lets start a game !")
-}
-
 func main() {
 	clearScreen()
 	myFigure := figure.NewFigure("DOS Fight", "rectangles", true)
@@ -64,12 +60,4 @@ func main() {
 	p := player.NewPlayer(playerName)
 
 	mainMenu(p)
-	/*
-		h := classes.CreateClass("Mage")
-
-		fmt.Println("Health Point : ", h.GetHealthPoint())
-		fmt.Println("Magic Point: ", h.GetMagicPoint())
-		fmt.Println("Strength : ", h.GetStrength())
-		fmt.Println("Intelect: ", h.GetIntelect())
-	*/
 }
