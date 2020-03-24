@@ -76,15 +76,15 @@ func (m Mage) GetIntelect() int {
 // ------------------- Fin de Getters & Setters
 
 // CreateClass ;
-func CreateClass(class string) Hero {
+func CreateClass(class string, bonusHp, bonusMp, bonusS, bonusI int) Hero {
 
 	// Source d'aleatoire
 	rand.Seed(time.Now().UnixNano())
 
-	hp := 100 // points de vie
-	mp := 100 // points de magie
-	s := 20   // Strength
-	i := 20   // Intelect
+	hp := 100 + bonusHp // points de vie
+	mp := 100 + bonusMp // points de magie
+	s := 20 + bonusS    // Strength
+	i := 20 + bonusI    // Intelect
 
 	// valeur max des points bonus ajouté aux stats
 	BonusCap := 50
