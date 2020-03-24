@@ -6,16 +6,16 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/William-LP/go_training/pkg/player"
+	"github.com/William-LP/DOS_Fight/pkg/player"
 	"github.com/common-nighthawk/go-figure"
 )
 
 type Items struct {
-	XMLName xml.Name `xml:"Items"`
-	Item    []Item   `xml:"Item"`
+	XMLName xml.Name      `xml:"Items"`
+	Item    []player.Item `xml:"Item"`
 }
 
-type Item struct {
+/* type Item struct {
 	XMLName     xml.Name `xml:"Item"`
 	Type        string   `xml:"type,attr"`
 	Id          string   `xml:"Id"`
@@ -25,12 +25,12 @@ type Item struct {
 	MagicPoint  int      `xml:"MagicPoint"`
 	Strength    int      `xml:"Strength"`
 	Intelect    int      `xml:"Intelect"`
-}
+} */
 
 func shop(p player.Player) {
 	clearScreen()
 	var items Items
-	var stuffs, potions []Item
+	var stuffs, potions []player.Item
 	/* Using a XML file
 	xmlFile, err := os.Open("../xml/items.xml")
 	if err != nil {
@@ -89,7 +89,7 @@ func sellItems(p player.Player) {
 
 }
 
-func showItems(items []Item, p player.Player) {
+func showItems(items []player.Item, p player.Player) {
 	for i := 0; i < len(items); i++ {
 		fmt.Println("\n+------------------------------+")
 		fmt.Println(items[i].Id + " - " + items[i].Name + "	(" + strconv.Itoa(items[i].Price) + " golds)")
@@ -135,7 +135,7 @@ func pause(x int) {
 	time.Sleep(duration)
 }
 
-func buyItem(p player.Player, i Item) {
+func buyItem(p player.Player, i player.Item) {
 	if p.Gold >= i.Price {
 		p.Gold = p.Gold - i.Price
 		if i.Type == "stuff" {
@@ -144,7 +144,7 @@ func buyItem(p player.Player, i Item) {
 			p.BonusStrength = p.BonusStrength + i.Strength
 			p.BonusIntelect = p.BonusIntelect + i.Intelect
 		}
-		p.Inventaire = append(p.Inventaire, player.Item{})
+		p.Inventaire = append(p.Inventaire, i)
 		shop(p)
 	} else {
 		fmt.Println()

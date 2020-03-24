@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/William-LP/go_training/pkg/player"
+	"github.com/William-LP/DOS_Fight/pkg/player"
 	"github.com/common-nighthawk/go-figure"
 )
 
