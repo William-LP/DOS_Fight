@@ -12,6 +12,7 @@ import (
 )
 
 func getInput(textToPrint string) string {
+	println()
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print(textToPrint)
 	userInput, _ := reader.ReadString('\n')
@@ -29,7 +30,6 @@ func mainMenu(p player.Player) {
 	fmt.Println("Open the shop (2)")
 	fmt.Println("See my player's stats (3)")
 	fmt.Println("Exit the game (4)")
-	fmt.Println()
 	switch getInput("Choice : ") {
 	case "1":
 		startGame()
@@ -47,6 +47,7 @@ func mainMenu(p player.Player) {
 
 func exitGame() {
 	fmt.Println("Thanks for playing, adios !")
+	pause(2)
 	os.Exit(0)
 }
 
