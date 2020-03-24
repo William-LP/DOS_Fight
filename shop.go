@@ -57,7 +57,7 @@ func shop(p player.Player) {
 		}
 	}
 
-	ShopFigure := figure.NewFigure("Shop", "small", true)
+	ShopFigure := figure.NewFigure("Shop", "cybermedium", true)
 	ShopFigure.Print()
 	fmt.Println()
 	fmt.Printf("Welcome to the shop %s ! You´ve got %d gold(s).\n", p.Name, p.Gold)
