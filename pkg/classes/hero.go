@@ -11,6 +11,7 @@ type Hero interface {
 	GetMagicPoint() int
 	GetStrength() int
 	GetIntelect() int
+	GetClasse() string
 }
 
 // Trait ; structure étendu aux structures des différentes classes
@@ -19,6 +20,7 @@ type Trait struct {
 	MagicPoint,
 	Strength,
 	Intelect int
+	Classe string
 }
 
 // Warrior ; hérite des Trait + possede un bonus de Point de vie et de Strength
@@ -32,6 +34,16 @@ type Mage struct {
 }
 
 // -------------------  Getters & Setters
+
+// GetClasse ;
+func (w Warrior) GetClasse() string {
+	return w.Classe
+}
+
+// GetClasse ;
+func (m Mage) GetClasse() string {
+	return m.Classe
+}
 
 // GetHealthPoint ;
 func (w Warrior) GetHealthPoint() int {
@@ -105,6 +117,7 @@ func CreateClass(class string, bonusHp, bonusMp, bonusS, bonusI int) Hero {
 			MagicPoint:  mp,
 			Strength:    s,
 			Intelect:    i,
+			Classe:      "warrior",
 		}
 		h := Warrior{t}
 		return h
@@ -117,6 +130,7 @@ func CreateClass(class string, bonusHp, bonusMp, bonusS, bonusI int) Hero {
 			MagicPoint:  mp,
 			Strength:    s,
 			Intelect:    i,
+			Classe:      "mage",
 		}
 		h := Mage{t}
 		return h
