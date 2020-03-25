@@ -2,7 +2,10 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"strconv"
+	"strings"
+	"time"
 
 	"github.com/William-LP/DOS_Fight/pkg/classes"
 	"github.com/William-LP/DOS_Fight/pkg/player"
@@ -33,16 +36,16 @@ func game(p player.Player) {
 		game(p)
 	}
 
-	h := classes.CreateClass(classe, p.BonusHealthPoint, p.BonusMagicPoint, p.BonusStrength, p.BonusIntelect)
+	hPlayer := classes.CreateClass(classe, p.BonusHealthPoint, p.BonusMagicPoint, p.BonusStrength, p.BonusIntelect)
 	fmt.Println()
 	fmt.Println("Rolling stats...")
 	fmt.Println()
 	pause(2)
 	fmt.Println(p.Name + " is a " + classe + " with the following stats :")
-	fmt.Println("Health Point : ", h.GetHealthPoint())
-	fmt.Println("Magic Point: ", h.GetMagicPoint())
-	fmt.Println("Strength : ", h.GetStrength())
-	fmt.Println("Intelect: ", h.GetIntelect())
+	fmt.Println("Health Point : ", hPlayer.GetHealthPoint())
+	fmt.Println("Magic Point: ", hPlayer.GetMagicPoint())
+	fmt.Println("Strength : ", hPlayer.GetStrength())
+	fmt.Println("Intelect: ", hPlayer.GetIntelect())
 	pause(3)
 	for i := 3; i > 0; i-- {
 		clearScreen()
@@ -53,5 +56,43 @@ func game(p player.Player) {
 	clearScreen()
 	Countdown := figure.NewFigure("Fight !", "small", true)
 	Countdown.Print()
-	fmt.Println(petname.Generate(1, "-"))
+	botName := petname.Generate(1, "-")
+	vsTitle := figure.NewFigure(p.Name+" vs "+strings.Title(botName), "cybermedium", true)
+	vsTitle.Print()
+	bHero := generateHeroBot(p)
+	fightScreenHerosStats(bHero)
+}
+
+func fightScreenHerosStats(h classes.Hero) {
+	hp := h.GetHealthPoint()
+	mp := h.GetMagicPoint()
+	s := h.GetStrength()
+	i := h.GetIntelect()
+	c := h.GetClasse()
+	fmt.Println(hp, mp, s, i, c)
+
+}
+
+func generateHeroBot(p player.Player) classes.Hero {
+	var bClasse string
+	switch random(0, 100) % 2 {
+	case 0:
+		bClasse = "Warrior"
+	default:
+		bClasse = "Mage"
+	}
+
+	botBonus := p.Level * 10 // Bot bonues lines up with player level
+	hpBonus := random(0, botBonus)
+	mpBonus := random(0, botBonus)
+	sBonus := random(0, botBonus)
+	iBonus := random(0, botBonus)
+
+	hBot := classes.CreateClass(bClasse, hpBonus, mpBonus, sBonus, iBonus)
+	return hBot
+}
+
+func random(min, max int) int {
+	rand.Seed(time.Now().Unix())
+	return rand.Intn(max-min) + min
 }
