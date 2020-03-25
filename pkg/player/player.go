@@ -9,7 +9,8 @@ type Player struct {
 	BonusHealthPoint,
 	BonusMagicPoint,
 	BonusStrength,
-	BonusIntelect int
+	BonusIntelect,
+	Level int
 	Inventaire []Item
 }
 
@@ -34,6 +35,7 @@ func NewPlayer(name string) Player {
 		BonusMagicPoint:  0,
 		BonusStrength:    0,
 		BonusIntelect:    0,
+		Level:            1,
 	}
 	return np
 }
